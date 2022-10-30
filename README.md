@@ -1,4 +1,4 @@
-# OOP Template
+# TEMA 1 Checkers
 
 ### Tema 0
 
