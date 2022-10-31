@@ -142,7 +142,7 @@ public:
                 delete mat[i][j];
     }
 
-    void afistabla(Piesa *mat[8][8])
+    void afistabla()
     {
         for(int i=0;i<3;i++){
             for(int j=0;j<36;j++)
@@ -278,7 +278,7 @@ public:
         int randjucator=-1;
         do
         {
-            afistabla(mat);
+            afistabla();
             std::string mutare;
             std::cout<<"Randul jucatorului "<<(randjucator<0?p1.getNume():p2.getNume());
             pozitie mutarestart,mutarefinal;
