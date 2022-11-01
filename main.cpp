@@ -163,7 +163,7 @@ public:
                 }
                 else
                 {
-                    if((j%4==1||j%4==2)&&i%3==1&&j>=4&&mat[i/3][(j-4)/4]!=0){
+                    if((j%4==1||j%4==2)&&i%3==1&&mat[i/3][(j-4)/4]!= nullptr){
                         if(j%4==1) {
                             std::cout << mat[i / 3][(j - 4) / 4]->getculoare();
                             if(mat[i / 3][(j - 4) / 4]->getRege()==1)
