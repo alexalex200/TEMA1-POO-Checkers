@@ -11,7 +11,7 @@ private:
     std::string Culoare;
     int Rege;
 public:
-    Piesa(std::string new_culoare,int new_rege)
+    Piesa(const std::string new_culoare,int new_rege)
             :Culoare(new_culoare),Rege(new_rege){}
 
     Piesa(const Piesa& other)
@@ -57,10 +57,10 @@ class Jucator
     int scor;
 
 public:
-    Jucator(std::string new_culoare)
+    Jucator(const std::string new_culoare)
             :Culoare(new_culoare),scor(0){}
 
-    Jucator(std::string new_nume,std::string new_culoare)
+    Jucator(const std::string new_nume,const std::string new_culoare)
             :Culoare(new_culoare),Nume(new_nume),scor(0){}
 
     Jucator(const Jucator& other)
