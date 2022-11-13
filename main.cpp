@@ -15,7 +15,7 @@ public:
     Piesa()
     :Culoare(""){}
 
-    Piesa(const std::string new_culoare,int new_rege)
+    Piesa(const std::string& new_culoare,int new_rege)
             :Culoare(new_culoare),Rege(new_rege){}
 
     Piesa(const Piesa& other)
@@ -47,7 +47,7 @@ public:
     {
         Rege=1;
     }
-    void setCuloare(std::string new_culoare)
+    void setCuloare(const std::string& new_culoare)
     {
         Culoare=new_culoare;
     }
@@ -71,10 +71,10 @@ class Jucator
     int scor=0;
 
 public:
-    Jucator(const std::string new_culoare)
+    Jucator(const std::string& new_culoare)
             :Culoare(new_culoare){}
 
-    Jucator(const std::string new_nume,const std::string new_culoare)
+    Jucator(const std::string& new_nume,const std::string& new_culoare)
             :Culoare(new_culoare),Nume(new_nume){}
 
     Jucator(const Jucator& other)
