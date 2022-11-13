@@ -110,7 +110,7 @@ public:
     {
         scor++;
     }
-    void setCuloare(std::string new_culoare)
+    void setCuloare(const std::string& new_culoare)
     {
         Culoare=new_culoare;
     }
