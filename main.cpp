@@ -71,8 +71,7 @@ class Jucator
     int scor=0;
 
 public:
-    Jucator(const std::string& new_culoare)
-            :Culoare(new_culoare){}
+    Jucator(){}
 
     Jucator(const std::string& new_nume,const std::string& new_culoare)
             :Culoare(new_culoare),Nume(new_nume){}
@@ -110,6 +109,10 @@ public:
     void increment_scor()
     {
         scor++;
+    }
+    void setCuloare(std::string new_culoare)
+    {
+        Culoare=new_culoare;
     }
 };
 
@@ -275,7 +278,9 @@ public:
 
     void start()
     {
-        Jucator p1("N"),p2("A");
+        Jucator p1,p2;
+        p1.setCuloare("N");
+        p2.setCuloare("A");
         std::cin>>p1>>p2;
         int nrA=1,nrN=1;
         int randjucator=-1;
