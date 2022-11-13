@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <array>
+#include <vector>
 
 struct pozitie
 {
@@ -9,8 +11,11 @@ class Piesa
 {
 private:
     std::string Culoare;
-    int Rege;
+    int Rege=0;
 public:
+    Piesa()
+    :Culoare(""){}
+
     Piesa(const std::string new_culoare,int new_rege)
             :Culoare(new_culoare),Rege(new_rege){}
 
@@ -34,19 +39,29 @@ public:
         os << "Culoare: " << st.Culoare << ", Rege: " << st.Rege << "\n";
         return os;
     }
-    std::string getculoare()
+    std::string getculoare()const
     {
         return Culoare;
     }
 
     void setRege()
     {
-        Rege= true;
+        Rege=1;
     }
-
-    int getRege()const
+    void setCuloare(std::string new_culoare)
+    {
+        Culoare=new_culoare;
+    }
+    int getRege() const
     {
         return Rege;
+    }
+
+    int EstePiesa()const
+    {
+        if(Culoare=="")
+            return 0;
+        return 1;
     }
 };
 
@@ -54,14 +69,14 @@ class Jucator
 {
     std::string Culoare;
     std::string Nume;
-    int scor;
+    int scor=0;
 
 public:
     Jucator(const std::string new_culoare)
-            :Culoare(new_culoare),scor(0){}
+            :Culoare(new_culoare){}
 
     Jucator(const std::string new_nume,const std::string new_culoare)
-            :Culoare(new_culoare),Nume(new_nume),scor(0){}
+            :Culoare(new_culoare),Nume(new_nume){}
 
     Jucator(const Jucator& other)
             :Culoare(other.Culoare),Nume(other.Nume),scor(other.scor){
@@ -85,11 +100,11 @@ public:
         is>>st.Nume;
         return is;
     }
-    std::string getNume()
+    std::string getNume()const
     {
         return Nume;
     }
-    int getscor()
+    int getscor()const
     {
         return scor;
     }
@@ -101,8 +116,8 @@ public:
 
 class joc
 {
-    Piesa *mat[8][8];
-    //Jucator p1("N"),p2("A")   DA EROARE ????????
+    std::array <Piesa,8*8> mat;
+    //Jucator p1("N"),p2("A")  DA EROARE ????????
 
 public:
 
@@ -111,26 +126,19 @@ public:
         for(int i=0;i<3;i++)
             for(int j=0;j<8;j++)
                 if((i+j)%2==1)
-                    mat[i][j]=new Piesa("A",0);
-                else
-                    mat[i][j]=nullptr;
+                    mat[i*8+j].setCuloare("A");
 
         for(int i=5;i<8;i++)
             for(int j=0;j<8;j++)
                 if((i+j)%2==1)
-                    mat[i][j]=new Piesa("N",0);
-                else
-                    mat[i][j]=nullptr;
-        for(int i=3;i<5;i++)
-            for(int j=0;j<8;j++)
-                mat[i][j]=nullptr;
+                    mat[i*8+j].setCuloare("N");
     }
 
     joc& operator= (const joc& other) {
         if(&other != this) {
             for(int i=0;i<8;i++)
                 for(int j=0;j<8;j++)
-                    this->mat[i][j] = other.mat[i][j];
+                    this->mat[i*8+j] = other.mat[i*8+j];
         }
         return *this;
     }
@@ -139,7 +147,7 @@ public:
     {
         for(int i=0;i<8;i++)
             for(int j=0;j<8;j++)
-                delete mat[i][j];
+                mat[i*8+j].setCuloare("");
     }
 
     void afistabla()
@@ -163,10 +171,10 @@ public:
                 }
                 else
                 {
-                    if((j%4==1||j%4==2)&&i%3==1&&mat[i/3][(j-4)/4]!= nullptr){
+                    if((j%4==1||j%4==2)&&i%3==1&&mat[(i/3)*8+((j-4)/4)].EstePiesa()){
                         if(j%4==1) {
-                            std::cout << mat[i / 3][(j - 4) / 4]->getculoare();
-                            if(mat[i / 3][(j - 4) / 4]->getRege()==1)
+                            std::cout << mat[(i / 3)*8+((j - 4) / 4)].getculoare();
+                            if(mat[(i / 3)*8+((j - 4) / 4)].getRege()==1)
                                 std::cout<<"R";
                             else
                                 std::cout<<" ";
@@ -230,28 +238,26 @@ public:
 
     int mutarevalida(pozitie ms,pozitie mf,int rj)
     {
-        if(mat[ms.x][ms.y]==nullptr)
+        if(!mat[ms.x*8+ms.y].EstePiesa())
         {
             std::cout<<"MUTARE INVALIDA 4!!!";
             return 0;
         }
 
-        if((rj==1&&mat[ms.x][ms.y]->getculoare()=="N")||(rj==-1&&mat[ms.x][ms.y]->getculoare()=="A")){
+        if((rj==1&&mat[ms.x*8+ms.y].getculoare()=="N")||(rj==-1&&mat[ms.x*8+ms.y].getculoare()=="A")){
             std::cout<<"MUTARE INVALIDA 3!!!";
             return 0;
         }
 
-        if(mat[mf.x][mf.y]!=nullptr)
+        if(mat[mf.x*8+mf.y].EstePiesa())
         {
             std::cout<<"MUTARE INVALIDA 5!!!";
             return 0;
         }
-        if(mat[ms.x][ms.y]->getRege()==0) {
+        if(mat[ms.x*8+ms.y].getRege()==0) {
             if (!(((mf.x - ms.x == rj) && abs(ms.y - mf.y) == 1) || ((abs(ms.x - mf.x) == 2 && abs(ms.y - mf.y) == 2) &&
-                                                                     mat[ms.x + rj][ms.y + (mf.y - ms.y) / 2] != nullptr &&
-                                                                     mat[ms.x + rj][ms.y +
-                                                                                    (mf.y - ms.y) / 2]->getculoare() !=
-                                                                     mat[ms.x][ms.y]->getculoare()))) {
+                                                                     mat[(ms.x + rj)*8+(ms.y + (mf.y - ms.y) / 2)].EstePiesa() &&
+                                                                     mat[(ms.x + rj)*8+(ms.y +(mf.y - ms.y) / 2)].getculoare() !=mat[ms.x*8+ms.y].getculoare()))) {
                 std::cout << "MUTARE INVALIDA 6!!!";
                 return 0;
             }
@@ -259,10 +265,8 @@ public:
         else
         {
             if (!((abs(ms.x - mf.x) == 1 && abs(ms.y - mf.y) == 1) || ((abs(ms.x - mf.x) == 2 && abs(ms.y - mf.y) == 2) &&
-                                                                       mat[ms.x + (mf.x - ms.x) / 2][ms.y + (mf.y - ms.y) / 2] != nullptr &&
-                                                                       mat[ms.x + (mf.x - ms.x) / 2][ms.y +
-                                                                                                     (mf.y - ms.y) / 2]->getculoare() !=
-                                                                       mat[ms.x][ms.y]->getculoare()))) {
+                                                                       mat[(ms.x + (mf.x - ms.x) / 2)*8+(ms.y + (mf.y - ms.y) / 2)].EstePiesa() &&
+                                                                       mat[(ms.x + (mf.x - ms.x) / 2)*8+(ms.y +(mf.y - ms.y) / 2)].getculoare() !=mat[ms.x*8+ms.y].getculoare()))) {
                 std::cout << "MUTARE INVALIDA 7!!!";
                 return 0;
             }
@@ -274,7 +278,7 @@ public:
     {
         Jucator p1("N"),p2("A");
         std::cin>>p1>>p2;
-        int nrA=12,nrN=12;
+        int nrA=1,nrN=1;
         int randjucator=-1;
         do
         {
@@ -288,31 +292,31 @@ public:
                 std::getline(std::cin>>std::ws,mutare);
             }while(!conversiemutare(mutarestart,mutarefinal,mutare)||!mutarevalida(mutarestart,mutarefinal,randjucator));
 
-            if(abs(mutarestart.x-mutarefinal.x)==2&&abs(mutarestart.y-mutarefinal.y)==2&&mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2]!=nullptr&&mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2]->getculoare()!=mat[mutarestart.x][mutarestart.y]->getculoare())
+            if(abs(mutarestart.x-mutarefinal.x)==2&&abs(mutarestart.y-mutarefinal.y)==2&&mat[(mutarestart.x+(mutarefinal.x-mutarestart.x)/2)*8+(mutarestart.y+(mutarefinal.y-mutarestart.y)/2)].EstePiesa()&&mat[(mutarestart.x+(mutarefinal.x-mutarestart.x)/2)*8+(mutarestart.y+(mutarefinal.y-mutarestart.y)/2)].getculoare()!=mat[mutarestart.x*8+mutarestart.y].getculoare())
             {
-                mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2]=nullptr;
+                mat[(mutarestart.x+(mutarefinal.x-mutarestart.x)/2)*8+(mutarestart.y+(mutarefinal.y-mutarestart.y)/2)]=Piesa("",0);
                 if(randjucator==-1)
                     nrA--;
                 else
                     nrN--;
                 randjucator=randjucator*(-1);
             }
-            mat[mutarefinal.x][mutarefinal.y]=mat[mutarestart.x][mutarestart.y];
-            mat[mutarestart.x][mutarestart.y]=nullptr;
+            mat[mutarefinal.x*8+mutarefinal.y]=mat[mutarestart.x*8+mutarestart.y];
+            mat[mutarestart.x*8+mutarestart.y]=Piesa("",0);
             if(mutarefinal.x==0||mutarefinal.x==7)
-                mat[mutarefinal.x][mutarefinal.y]->setRege();
+                mat[mutarefinal.x*8+mutarefinal.y].setRege();
             randjucator=randjucator*(-1);
             //system("cls");
         }while(nrA!=0&&nrN!=0);
         if(nrA==0)
         {
             p1.increment_scor();
-            std::cout<<"Castiga "<<p1.getNume() << " Scor: "<<p1.getscor();
+            std::cout<<"Castiga "<<p1.getNume() << " Scor: "<<p1.getscor()<<'\n';
         }
         else
         {
             p2.increment_scor();
-            std::cout<<"Castiga "<<p2.getNume() << " Scor: "<<p2.getscor();
+            std::cout<<"Castiga "<<p2.getNume() << " Scor: "<<p2.getscor()<<'\n';
         }
         std::string raspuns;
         std::cout<<"Continuati [Y/N]:";
