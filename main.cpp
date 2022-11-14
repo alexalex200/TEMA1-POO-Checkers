@@ -50,6 +50,7 @@ public:
     void setCuloare(const std::string& new_culoare)
     {
         Culoare=new_culoare;
+        Rege=0;
     }
     int getRege() const
     {
@@ -151,7 +152,22 @@ public:
             for(int j=0;j<8;j++)
                 mat[i][j].setCuloare("");
     }
+    void ResetTabla()
+    {
+        for(int i=0;i<3;i++)
+            for(int j=0;j<8;j++)
+                if((i+j)%2==1)
+                    mat[i][j].setCuloare("A");
 
+        for(int i=5;i<8;i++)
+            for(int j=0;j<8;j++)
+                if((i+j)%2==1)
+                    mat[i][j].setCuloare("N");
+
+        for(int i=3;i<5;i++)
+            for(int j=0;j<8;j++)
+                    mat[i][j].setCuloare("");
+    }
     void afistabla()
     {
         for(int i=0;i<3;i++){
@@ -276,59 +292,62 @@ public:
         return 1;
     }
 
-    void start()
-    {
-        Jucator p1,p2;
+    void start() {
+        Jucator p1, p2;
         p1.setCuloare("N");
         p2.setCuloare("A");
-        std::cin>>p1>>p2;
-        int nrA=1,nrN=1;
-        int randjucator=-1;
-        do
-        {
-            afistabla();
-            std::string mutare;
-            std::cout<<"Randul jucatorului "<<(randjucator<0?p1.getNume():p2.getNume());
-            pozitie mutarestart,mutarefinal;
-            do
-            {
-                std::cout<<"\nIntroduceti o mutare:";
-                std::getline(std::cin>>std::ws,mutare);
-            }while(!conversiemutare(mutarestart,mutarefinal,mutare)||!mutarevalida(mutarestart,mutarefinal,randjucator));
-
-            if(abs(mutarestart.x-mutarefinal.x)==2&&abs(mutarestart.y-mutarefinal.y)==2&&mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2].EstePiesa()&&mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2].getculoare()!=mat[mutarestart.x][mutarestart.y].getculoare())
-            {
-                mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2]=Piesa("",0);
-                if(randjucator==-1)
-                    nrA--;
-                else
-                    nrN--;
-                randjucator=randjucator*(-1);
-            }
-            mat[mutarefinal.x][mutarefinal.y]=mat[mutarestart.x][mutarestart.y];
-            mat[mutarestart.x][mutarestart.y]=Piesa("",0);
-            if(mutarefinal.x==0||mutarefinal.x==7)
-                mat[mutarefinal.x][mutarefinal.y].setRege();
-            randjucator=randjucator*(-1);
-            //system("cls");
-        }while(nrA!=0&&nrN!=0);
-        if(nrA==0)
-        {
-            p1.increment_scor();
-            std::cout<<"Castiga "<<p1.getNume() << " Scor: "<<p1.getscor()<<'\n';
-        }
-        else
-        {
-            p2.increment_scor();
-            std::cout<<"Castiga "<<p2.getNume() << " Scor: "<<p2.getscor()<<'\n';
-        }
+        std::cin >> p1 >> p2;
+        int nrA = 1, nrN = 1;
+        int randjucator = -1;
         std::string raspuns;
-        std::cout<<"Continuati [Y/N]:";
-        std::cin>>raspuns;
-        if(raspuns=="Y")
-            start();
-        else
-            exit(0);
+        do {
+            do {
+                afistabla();
+                std::string mutare;
+                std::cout << "Randul jucatorului " << (randjucator < 0 ? p1.getNume() : p2.getNume());
+                pozitie mutarestart, mutarefinal;
+                do {
+                    std::cout << "\nIntroduceti o mutare:";
+                    std::getline(std::cin >> std::ws, mutare);
+                } while (!conversiemutare(mutarestart, mutarefinal, mutare) ||
+                         !mutarevalida(mutarestart, mutarefinal, randjucator));
+
+                if (abs(mutarestart.x - mutarefinal.x) == 2 && abs(mutarestart.y - mutarefinal.y) == 2 &&
+                    mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
+                                                                             (mutarefinal.y - mutarestart.y) /
+                                                                             2].EstePiesa() &&
+                    mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
+                                                                             (mutarefinal.y - mutarestart.y) /
+                                                                             2].getculoare() !=
+                    mat[mutarestart.x][mutarestart.y].getculoare()) {
+                    mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
+                                                                             (mutarefinal.y - mutarestart.y) /
+                                                                             2] = Piesa("", 0);
+                    if (randjucator == -1)
+                        nrA--;
+                    else
+                        nrN--;
+                    randjucator = randjucator * (-1);
+                }
+                mat[mutarefinal.x][mutarefinal.y] = mat[mutarestart.x][mutarestart.y];
+                mat[mutarestart.x][mutarestart.y] = Piesa("", 0);
+                if (mutarefinal.x == 0 || mutarefinal.x == 7)
+                    mat[mutarefinal.x][mutarefinal.y].setRege();
+                randjucator = randjucator * (-1);
+                //system("cls");
+            } while (nrA != 0 && nrN != 0);
+            ResetTabla();
+            if (nrA == 0) {
+                p1.increment_scor();
+                std::cout << "Castiga " << p1.getNume() << " Scor: " << p1.getscor() << '\n';
+            } else {
+                p2.increment_scor();
+                std::cout << "Castiga " << p2.getNume() << " Scor: " << p2.getscor() << '\n';
+            }
+            std::cout << "Continuati [Y/N]:";
+            std::cin >> raspuns;
+            nrA=1;nrN=1;
+        } while (raspuns == "Y");
     }
 };
 int main()
