@@ -322,7 +322,7 @@ public:
                     mat[mutarestart.x][mutarestart.y].getculoare()) {
                     mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
                                                                              (mutarefinal.y - mutarestart.y) /
-                                                                             2] = Piesa("", 0);
+                                                                             2].setCuloare("");
                     if (randjucator == -1)
                         nrA--;
                     else
@@ -330,7 +330,7 @@ public:
                     randjucator = randjucator * (-1);
                 }
                 mat[mutarefinal.x][mutarefinal.y] = mat[mutarestart.x][mutarestart.y];
-                mat[mutarestart.x][mutarestart.y] = Piesa("", 0);
+                mat[mutarestart.x][mutarestart.y].setCuloare("");
                 if (mutarefinal.x == 0 || mutarefinal.x == 7)
                     mat[mutarefinal.x][mutarefinal.y].setRege();
                 randjucator = randjucator * (-1);
