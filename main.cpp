@@ -118,7 +118,7 @@ public:
 
 class joc
 {
-    std::array <Piesa,8*8> mat;
+    std::array <std::array<Piesa,8>,8> mat;
     //Jucator p1("N"),p2("A")  DA EROARE ????????
 
 public:
@@ -128,19 +128,19 @@ public:
         for(int i=0;i<3;i++)
             for(int j=0;j<8;j++)
                 if((i+j)%2==1)
-                    mat[i*8+j].setCuloare("A");
+                    mat[i][j].setCuloare("A");
 
         for(int i=5;i<8;i++)
             for(int j=0;j<8;j++)
                 if((i+j)%2==1)
-                    mat[i*8+j].setCuloare("N");
+                    mat[i][j].setCuloare("N");
     }
 
     joc& operator= (const joc& other) {
         if(&other != this) {
             for(int i=0;i<8;i++)
                 for(int j=0;j<8;j++)
-                    this->mat[i*8+j] = other.mat[i*8+j];
+                    this->mat[i][j] = other.mat[i][j];
         }
         return *this;
     }
@@ -149,7 +149,7 @@ public:
     {
         for(int i=0;i<8;i++)
             for(int j=0;j<8;j++)
-                mat[i*8+j].setCuloare("");
+                mat[i][j].setCuloare("");
     }
 
     void afistabla()
@@ -173,10 +173,10 @@ public:
                 }
                 else
                 {
-                    if((j%4==1||j%4==2)&&i%3==1&&mat[(i/3)*8+((j-4)/4)].EstePiesa()){
+                    if((j%4==1||j%4==2)&&i%3==1&&mat[i/3][(j-4)/4].EstePiesa()){
                         if(j%4==1) {
-                            std::cout << mat[(i / 3)*8+((j - 4) / 4)].getculoare();
-                            if(mat[(i / 3)*8+((j - 4) / 4)].getRege()==1)
+                            std::cout << mat[i / 3][(j - 4) / 4].getculoare();
+                            if(mat[i / 3][(j - 4) / 4].getRege()==1)
                                 std::cout<<"R";
                             else
                                 std::cout<<" ";
@@ -240,26 +240,26 @@ public:
 
     int mutarevalida(pozitie ms,pozitie mf,int rj)
     {
-        if(!mat[ms.x*8+ms.y].EstePiesa())
+        if(!mat[ms.x][ms.y].EstePiesa())
         {
             std::cout<<"MUTARE INVALIDA 4!!!";
             return 0;
         }
 
-        if((rj==1&&mat[ms.x*8+ms.y].getculoare()=="N")||(rj==-1&&mat[ms.x*8+ms.y].getculoare()=="A")){
+        if((rj==1&&mat[ms.x][ms.y].getculoare()=="N")||(rj==-1&&mat[ms.x][ms.y].getculoare()=="A")){
             std::cout<<"MUTARE INVALIDA 3!!!";
             return 0;
         }
 
-        if(mat[mf.x*8+mf.y].EstePiesa())
+        if(mat[mf.x][mf.y].EstePiesa())
         {
             std::cout<<"MUTARE INVALIDA 5!!!";
             return 0;
         }
-        if(mat[ms.x*8+ms.y].getRege()==0) {
+        if(mat[ms.x][ms.y].getRege()==0) {
             if (!(((mf.x - ms.x == rj) && abs(ms.y - mf.y) == 1) || ((abs(ms.x - mf.x) == 2 && abs(ms.y - mf.y) == 2) &&
-                                                                     mat[(ms.x + rj)*8+(ms.y + (mf.y - ms.y) / 2)].EstePiesa() &&
-                                                                     mat[(ms.x + rj)*8+(ms.y +(mf.y - ms.y) / 2)].getculoare() !=mat[ms.x*8+ms.y].getculoare()))) {
+                                                                     mat[ms.x + rj][ms.y + (mf.y - ms.y) / 2].EstePiesa() &&
+                                                                     mat[ms.x + rj][ms.y +(mf.y - ms.y) / 2].getculoare() !=mat[ms.x][ms.y].getculoare()))) {
                 std::cout << "MUTARE INVALIDA 6!!!";
                 return 0;
             }
@@ -267,8 +267,8 @@ public:
         else
         {
             if (!((abs(ms.x - mf.x) == 1 && abs(ms.y - mf.y) == 1) || ((abs(ms.x - mf.x) == 2 && abs(ms.y - mf.y) == 2) &&
-                                                                       mat[(ms.x + (mf.x - ms.x) / 2)*8+(ms.y + (mf.y - ms.y) / 2)].EstePiesa() &&
-                                                                       mat[(ms.x + (mf.x - ms.x) / 2)*8+(ms.y +(mf.y - ms.y) / 2)].getculoare() !=mat[ms.x*8+ms.y].getculoare()))) {
+                                                                       mat[ms.x + (mf.x - ms.x) / 2][ms.y + (mf.y - ms.y) / 2].EstePiesa() &&
+                                                                       mat[ms.x + (mf.x - ms.x) / 2][ms.y +(mf.y - ms.y) / 2].getculoare() !=mat[ms.x][ms.y].getculoare()))) {
                 std::cout << "MUTARE INVALIDA 7!!!";
                 return 0;
             }
@@ -296,19 +296,19 @@ public:
                 std::getline(std::cin>>std::ws,mutare);
             }while(!conversiemutare(mutarestart,mutarefinal,mutare)||!mutarevalida(mutarestart,mutarefinal,randjucator));
 
-            if(abs(mutarestart.x-mutarefinal.x)==2&&abs(mutarestart.y-mutarefinal.y)==2&&mat[(mutarestart.x+(mutarefinal.x-mutarestart.x)/2)*8+(mutarestart.y+(mutarefinal.y-mutarestart.y)/2)].EstePiesa()&&mat[(mutarestart.x+(mutarefinal.x-mutarestart.x)/2)*8+(mutarestart.y+(mutarefinal.y-mutarestart.y)/2)].getculoare()!=mat[mutarestart.x*8+mutarestart.y].getculoare())
+            if(abs(mutarestart.x-mutarefinal.x)==2&&abs(mutarestart.y-mutarefinal.y)==2&&mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2].EstePiesa()&&mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2].getculoare()!=mat[mutarestart.x][mutarestart.y].getculoare())
             {
-                mat[(mutarestart.x+(mutarefinal.x-mutarestart.x)/2)*8+(mutarestart.y+(mutarefinal.y-mutarestart.y)/2)]=Piesa("",0);
+                mat[mutarestart.x+(mutarefinal.x-mutarestart.x)/2][mutarestart.y+(mutarefinal.y-mutarestart.y)/2]=Piesa("",0);
                 if(randjucator==-1)
                     nrA--;
                 else
                     nrN--;
                 randjucator=randjucator*(-1);
             }
-            mat[mutarefinal.x*8+mutarefinal.y]=mat[mutarestart.x*8+mutarestart.y];
-            mat[mutarestart.x*8+mutarestart.y]=Piesa("",0);
+            mat[mutarefinal.x][mutarefinal.y]=mat[mutarestart.x][mutarestart.y];
+            mat[mutarestart.x][mutarestart.y]=Piesa("",0);
             if(mutarefinal.x==0||mutarefinal.x==7)
-                mat[mutarefinal.x*8+mutarefinal.y].setRege();
+                mat[mutarefinal.x][mutarefinal.y].setRege();
             randjucator=randjucator*(-1);
             //system("cls");
         }while(nrA!=0&&nrN!=0);
