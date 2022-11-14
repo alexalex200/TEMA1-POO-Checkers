@@ -142,8 +142,13 @@ public:
     joc &operator=(const joc &other) {
         if (&other != this) {
             for (int i = 0; i < lungimetable; i++)
-                for (int j = 0; j < latimetable; j++)
+                for (int j = 0; j < latimetable; j++) {
                     this->mat[i][j] = other.mat[i][j];
+                    this->lungimetable=other.lungimetable;
+                    this->latimetable=other.latimetable;
+                    this->lungimebanda=other.lungimebanda;
+                    this->latimetable=other.latimetable;
+                }
         }
         return *this;
     }
