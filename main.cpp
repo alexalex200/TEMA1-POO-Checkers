@@ -2,290 +2,275 @@
 #include <string>
 #include <array>
 
-struct pozitie
-{
-    int x,y;
+struct pozitie {
+    int x, y;
 };
 
-class Piesa
-{
+class Piesa {
 private:
     std::string Culoare;
-    int Rege=0;
+    int Rege = 0;
 public:
     Piesa()
-    :Culoare(""){}
+            : Culoare("") {}
 
-    Piesa(const std::string& new_culoare,int new_rege)
-            :Culoare(new_culoare),Rege(new_rege){}
+    Piesa(const std::string &new_culoare, int new_rege)
+            : Culoare(new_culoare), Rege(new_rege) {}
 
-    Piesa(const Piesa& other)
-            :Culoare(other.Culoare),Rege(other.Rege){
-        std::cout<<" Constr Cop Piesa\n";
+    Piesa(const Piesa &other)
+            : Culoare(other.Culoare), Rege(other.Rege) {
+        std::cout << " Constr Cop Piesa\n";
     }
 
     ~Piesa() {
         std::cout << "Destr Piesa\n";
     }
 
-    Piesa& operator= (const Piesa& other) {
-        if(&other != this) {
+    Piesa &operator=(const Piesa &other) {
+        if (&other != this) {
             this->Culoare = other.Culoare;
-            this->Rege= other.Rege;
+            this->Rege = other.Rege;
         }
         return *this;
     }
-    friend std::ostream& operator<<(std::ostream& os, const Piesa& st) {
+
+    friend std::ostream &operator<<(std::ostream &os, const Piesa &st) {
         os << "Culoare: " << st.Culoare << ", Rege: " << st.Rege << "\n";
         return os;
     }
-    std::string getculoare()const
-    {
+
+    std::string getculoare() const {
         return Culoare;
     }
 
-    void setRege()
-    {
-        Rege=1;
+    void setRege() {
+        Rege = 1;
     }
-    void setCuloare(const std::string& new_culoare)
-    {
-        Culoare=new_culoare;
-        Rege=0;
+
+    void setCuloare(const std::string &new_culoare) {
+        Culoare = new_culoare;
+        Rege = 0;
     }
-    int getRege() const
-    {
+
+    int getRege() const {
         return Rege;
     }
 
-    int EstePiesa()const
-    {
-        if(Culoare=="")
+    int EstePiesa() const {
+        if (Culoare == "")
             return 0;
         return 1;
     }
 };
 
-class Jucator
-{
+class Jucator {
     std::string Culoare;
     std::string Nume;
-    int scor=0;
+    int scor = 0;
 
 public:
-    Jucator(){}
+    Jucator() {}
 
-    Jucator(const std::string& new_nume,const std::string& new_culoare)
-            :Culoare(new_culoare),Nume(new_nume){}
+    Jucator(const std::string &new_nume, const std::string &new_culoare)
+            : Culoare(new_culoare), Nume(new_nume) {}
 
-    Jucator(const Jucator& other)
-            :Culoare(other.Culoare),Nume(other.Nume),scor(other.scor){
-        std::cout<<" Constr Cop Jucator\n";
+    Jucator(const Jucator &other)
+            : Culoare(other.Culoare), Nume(other.Nume), scor(other.scor) {
+        std::cout << " Constr Cop Jucator\n";
     }
 
     ~Jucator() {
         std::cout << "Destr Jucator\n";
     }
 
-    Jucator& operator= (const Jucator& other) {
-        if(&other != this) {
+    Jucator &operator=(const Jucator &other) {
+        if (&other != this) {
             this->Culoare = other.Culoare;
-            this->Nume= other.Nume;
-            this->scor= other.scor;
+            this->Nume = other.Nume;
+            this->scor = other.scor;
         }
         return *this;
     }
-    friend std::istream& operator>>(std::istream& is,Jucator& st) {
-        std::cout<<"Nume jucator:";
-        is>>st.Nume;
+
+    friend std::istream &operator>>(std::istream &is, Jucator &st) {
+        std::cout << "Nume jucator:";
+        is >> st.Nume;
         return is;
     }
-    std::string getNume()const
-    {
+
+    std::string getNume() const {
         return Nume;
     }
-    int getscor()const
-    {
+
+    int getscor() const {
         return scor;
     }
-    void increment_scor()
-    {
+
+    void increment_scor() {
         scor++;
     }
-    void setCuloare(const std::string& new_culoare)
-    {
-        Culoare=new_culoare;
+
+    void setCuloare(const std::string &new_culoare) {
+        Culoare = new_culoare;
     }
 };
 
-class joc
-{
-    std::array <std::array<Piesa,8>,8> mat;
+class joc {
+    std::array<std::array<Piesa, 8>, 8> mat;
+    int lungimetable = 8, latimetable = 8, lungimebanda = 3, latimebanda = 4;
     //Jucator p1("N"),p2("A")  DA EROARE ????????
 
 public:
 
-    joc()
-    {
-        for(int i=0;i<3;i++)
-            for(int j=0;j<8;j++)
-                if((i+j)%2==1)
+    joc() {
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < latimetable; j++)
+                if ((i + j) % 2 == 1)
                     mat[i][j].setCuloare("A");
 
-        for(int i=5;i<8;i++)
-            for(int j=0;j<8;j++)
-                if((i+j)%2==1)
+        for (int i = 5; i < lungimetable; i++)
+            for (int j = 0; j < latimetable; j++)
+                if ((i + j) % 2 == 1)
                     mat[i][j].setCuloare("N");
     }
 
-    joc& operator= (const joc& other) {
-        if(&other != this) {
-            for(int i=0;i<8;i++)
-                for(int j=0;j<8;j++)
+    joc(const joc &other)
+            : mat(other.mat) {
+        std::cout << " Constr Cop joc\n";
+    }
+
+    joc &operator=(const joc &other) {
+        if (&other != this) {
+            for (int i = 0; i < lungimetable; i++)
+                for (int j = 0; j < latimetable; j++)
                     this->mat[i][j] = other.mat[i][j];
         }
         return *this;
     }
 
-    ~joc()
-    {
-        for(int i=0;i<8;i++)
-            for(int j=0;j<8;j++)
+    ~joc() {
+        for (int i = 0; i < lungimetable; i++)
+            for (int j = 0; j < latimetable; j++)
                 mat[i][j].setCuloare("");
     }
-    void ResetTabla()
-    {
-        for(int i=0;i<3;i++)
-            for(int j=0;j<8;j++)
-                if((i+j)%2==1)
+
+    void ResetTabla() {
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < latimetable; j++)
+                if ((i + j) % 2 == 1)
                     mat[i][j].setCuloare("A");
 
-        for(int i=5;i<8;i++)
-            for(int j=0;j<8;j++)
-                if((i+j)%2==1)
+        for (int i = 5; i < lungimetable; i++)
+            for (int j = 0; j < latimetable; j++)
+                if ((i + j) % 2 == 1)
                     mat[i][j].setCuloare("N");
 
-        for(int i=3;i<5;i++)
-            for(int j=0;j<8;j++)
-                    mat[i][j].setCuloare("");
+        for (int i = 3; i < 5; i++)
+            for (int j = 0; j < latimetable; j++)
+                mat[i][j].setCuloare("");
     }
-    void afistabla()
-    {
-        for(int i=0;i<3;i++){
-            for(int j=0;j<36;j++)
-                if(j%4==1&&i%3==1&&j>4)
-                    std::cout<<char('A'+j/4-1);
+
+    void afistabla() {
+        for (int i = 0; i < lungimebanda; i++) {
+            for (int j = 0; j < (4 * latimetable + latimebanda); j++)
+                if (j % 4 == 1 && i % 3 == 1 && j > 4)
+                    std::cout << char('A' + j / 4 - 1);
                 else
-                    std::cout<<".";
-            std::cout<<"\n";
+                    std::cout << ".";
+            std::cout << "\n";
         }
-        for(int i=0;i<24;i++){
-            for(int j=0;j<36;j++)
-            {
-                if(j<4){
-                    if(i%3==1&&j%4==1)
-                        std::cout<<i/3+1;
+        for (int i = 0; i < 3 * lungimetable; i++) {
+            for (int j = 0; j < (4 * latimetable + latimebanda); j++) {
+                if (j < 4) {
+                    if (i % 3 == 1 && j % 4 == 1)
+                        std::cout << i / 3 + 1;
                     else
-                        std::cout<<".";
-                }
-                else
-                {
-                    if((j%4==1||j%4==2)&&i%3==1&&mat[i/3][(j-4)/4].EstePiesa()){
-                        if(j%4==1) {
+                        std::cout << ".";
+                } else {
+                    if ((j % 4 == 1 || j % 4 == 2) && i % 3 == 1 && mat[i / 3][(j - 4) / 4].EstePiesa()) {
+                        if (j % 4 == 1) {
                             std::cout << mat[i / 3][(j - 4) / 4].getculoare();
-                            if(mat[i / 3][(j - 4) / 4].getRege()==1)
-                                std::cout<<"R";
+                            if (mat[i / 3][(j - 4) / 4].getRege() == 1)
+                                std::cout << "R";
                             else
-                                std::cout<<" ";
+                                std::cout << " ";
                         }
-                    }
-                    else
-                    {
-                        if((j/4+(i/3-1))%2==0)
-                            std::cout<<"#";
+                    } else {
+                        if ((j / 4 + (i / 3 - 1)) % 2 == 0)
+                            std::cout << "#";
                         else
-                            std::cout<<" ";
+                            std::cout << " ";
                     }
                 }
             }
-            std::cout<<"\n";
+            std::cout << "\n";
         }
     }
 
-    int conversiemutare(pozitie &a,pozitie &b,std::string m)
-    {
+    int conversiemutare(pozitie &a, pozitie &b, std::string m) {
 
-        int sem1=0,sem2=0;
-        std::string sep=" ,.;:";
-        for(long long unsigned int i=0;i<m.length();i++)
-        {
-            if(sep.rfind(m[i]))
-            {
-                if('a'<=m[i]&&m[i]<='h')
-                {
-                    if(sem1==0)
-                        a.y=m[i]-'a';
+        int sem1 = 0, sem2 = 0;
+        std::string sep = " ,.;:";
+        for (long long unsigned int i = 0; i < m.length(); i++) {
+            if (sep.rfind(m[i])) {
+                if ('a' <= m[i] && m[i] <= 'h') {
+                    if (sem1 == 0)
+                        a.y = m[i] - 'a';
                     else
-                        b.y=m[i]-'a';
+                        b.y = m[i] - 'a';
                     sem1++;
-                }
-                else
-                {
-                    if('1'<=m[i]&&m[i]<='8')
-                    {
-                        if(sem2==0)
-                            a.x=m[i]-'1';
+                } else {
+                    if ('1' <= m[i] && m[i] <= '8') {
+                        if (sem2 == 0)
+                            a.x = m[i] - '1';
                         else
-                            b.x=m[i]-'1';
+                            b.x = m[i] - '1';
                         sem2++;
-                    }
-                    else
-                    {
-                        std::cout<<"MUTARE INVALIDA !!!";
+                    } else {
+                        std::cout << "MUTARE INVALIDA !!!";
                         return 0;
                     }
                 }
             }
         }
-        if(sem1!=2||sem2!=2)
-        {
-            std::cout<<"MUTARE INVALIDA !!!";
+        if (sem1 != 2 || sem2 != 2) {
+            std::cout << "MUTARE INVALIDA !!!";
             return 0;
         }
         return 1;
     }
 
-    int mutarevalida(pozitie ms,pozitie mf,int rj)
-    {
-        if(!mat[ms.x][ms.y].EstePiesa())
-        {
-            std::cout<<"MUTARE INVALIDA 4!!!";
+    int mutarevalida(pozitie ms, pozitie mf, int rj) {
+        if (!mat[ms.x][ms.y].EstePiesa()) {
+            std::cout << "MUTARE INVALIDA 4!!!";
             return 0;
         }
 
-        if((rj==1&&mat[ms.x][ms.y].getculoare()=="N")||(rj==-1&&mat[ms.x][ms.y].getculoare()=="A")){
-            std::cout<<"MUTARE INVALIDA 3!!!";
+        if ((rj == 1 && mat[ms.x][ms.y].getculoare() == "N") || (rj == -1 && mat[ms.x][ms.y].getculoare() == "A")) {
+            std::cout << "MUTARE INVALIDA 3!!!";
             return 0;
         }
 
-        if(mat[mf.x][mf.y].EstePiesa())
-        {
-            std::cout<<"MUTARE INVALIDA 5!!!";
+        if (mat[mf.x][mf.y].EstePiesa()) {
+            std::cout << "MUTARE INVALIDA 5!!!";
             return 0;
         }
-        if(mat[ms.x][ms.y].getRege()==0) {
+        if (mat[ms.x][ms.y].getRege() == 0) {
             if (!(((mf.x - ms.x == rj) && abs(ms.y - mf.y) == 1) || ((abs(ms.x - mf.x) == 2 && abs(ms.y - mf.y) == 2) &&
-                                                                     mat[ms.x + rj][ms.y + (mf.y - ms.y) / 2].EstePiesa() &&
-                                                                     mat[ms.x + rj][ms.y +(mf.y - ms.y) / 2].getculoare() !=mat[ms.x][ms.y].getculoare()))) {
+                                                                     mat[ms.x + rj][ms.y +
+                                                                                    (mf.y - ms.y) / 2].EstePiesa() &&
+                                                                     mat[ms.x + rj][ms.y +
+                                                                                    (mf.y - ms.y) / 2].getculoare() !=
+                                                                     mat[ms.x][ms.y].getculoare()))) {
                 std::cout << "MUTARE INVALIDA 6!!!";
                 return 0;
             }
-        }
-        else
-        {
-            if (!((abs(ms.x - mf.x) == 1 && abs(ms.y - mf.y) == 1) || ((abs(ms.x - mf.x) == 2 && abs(ms.y - mf.y) == 2) &&
-                                                                       mat[ms.x + (mf.x - ms.x) / 2][ms.y + (mf.y - ms.y) / 2].EstePiesa() &&
-                                                                       mat[ms.x + (mf.x - ms.x) / 2][ms.y +(mf.y - ms.y) / 2].getculoare() !=mat[ms.x][ms.y].getculoare()))) {
+        } else {
+            if (!((abs(ms.x - mf.x) == 1 && abs(ms.y - mf.y) == 1) ||
+                  ((abs(ms.x - mf.x) == 2 && abs(ms.y - mf.y) == 2) &&
+                   mat[ms.x + (mf.x - ms.x) / 2][ms.y + (mf.y - ms.y) / 2].EstePiesa() &&
+                   mat[ms.x + (mf.x - ms.x) / 2][ms.y + (mf.y - ms.y) / 2].getculoare() !=
+                   mat[ms.x][ms.y].getculoare()))) {
                 std::cout << "MUTARE INVALIDA 7!!!";
                 return 0;
             }
@@ -347,12 +332,13 @@ public:
             }
             std::cout << "Continuati [Y/N]:";
             std::cin >> raspuns;
-            nrA=1;nrN=1;
+            nrA = 1;
+            nrN = 1;
         } while (raspuns == "Y");
     }
 };
-int main()
-{
+
+int main() {
     joc Checkers;
     Checkers.start();
 }
