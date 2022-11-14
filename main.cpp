@@ -147,7 +147,7 @@ public:
                     this->lungimetable=other.lungimetable;
                     this->latimetable=other.latimetable;
                     this->lungimebanda=other.lungimebanda;
-                    this->latimetable=other.latimetable;
+                    this->latimebanda=other.latimetable;
                 }
         }
         return *this;
