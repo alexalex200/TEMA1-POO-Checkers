@@ -3,4 +3,9 @@ alin
 c6d5
 b3c4
 d5b3
+Y
+a6b5
+b3a4
+c6d5
+a4c6
 N
