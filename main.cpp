@@ -6,6 +6,7 @@ struct pozitie
 {
     int x,y;
 };
+
 class Piesa
 {
 private:
