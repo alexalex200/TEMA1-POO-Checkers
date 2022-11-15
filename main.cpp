@@ -120,8 +120,7 @@ class joc {
     int lungimetable = 8, latimetable = 8, lungimebanda = 3, latimebanda = 4;
     //Jucator p1("N"),p2("A")  DA EROARE ????????
 
-    int mv(pozitie mutarestart ,pozitie mutarefinal)
-    {
+    int mv(pozitie mutarestart, pozitie mutarefinal) {
         if (abs(mutarestart.x - mutarefinal.x) == 2 && abs(mutarestart.y - mutarefinal.y) == 2 &&
             mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
                                                                      (mutarefinal.y - mutarestart.y) /
@@ -130,32 +129,37 @@ class joc {
                                                                      (mutarefinal.y - mutarestart.y) /
                                                                      2].getculoare() !=
             mat[mutarestart.x][mutarestart.y].getculoare())
-                return 1;
+            return 1;
         return 0;
     }
 
-    int mv2(pozitie mutarestart ,pozitie mutarefinal,int randjucator)
-    {
+    int mv2(pozitie mutarestart, pozitie mutarefinal, int randjucator) {
         if (mat[mutarestart.x][mutarestart.y].getRege() == 0) {
-            if (!(((mutarefinal.x - mutarestart.x == randjucator) && abs(mutarestart.y - mutarefinal.y) == 1) || ((abs(mutarestart.x - mutarefinal.x) == 2 && abs(mutarestart.y - mutarefinal.y) == 2) &&
-                                                                     mat[mutarestart.x + randjucator][mutarestart.y +
-                                                                                    (mutarefinal.y - mutarestart.y) / 2].EstePiesa() &&
-                                                                     mat[mutarestart.x + randjucator][mutarestart.y +
-                                                                                    (mutarefinal.y - mutarestart.y) / 2].getculoare() !=
-                                                                     mat[mutarestart.x][mutarestart.y].getculoare()))) {
-                return 1;
+            if (((mutarefinal.x - mutarestart.x == randjucator) && abs(mutarestart.y - mutarefinal.y) == 1) ||
+                  ((abs(mutarestart.x - mutarefinal.x) == 2 && abs(mutarestart.y - mutarefinal.y) == 2) &&
+                   mat[mutarestart.x + randjucator][mutarestart.y +
+                                                    (mutarefinal.y - mutarestart.y) / 2].EstePiesa() &&
+                   mat[mutarestart.x + randjucator][mutarestart.y +
+                                                    (mutarefinal.y - mutarestart.y) / 2].getculoare() !=
+                   mat[mutarestart.x][mutarestart.y].getculoare())) {
+                return 0;
             }
         } else {
-            if (!((abs(mutarestart.x - mutarefinal.x) == 1 && abs(mutarestart.y - mutarefinal.y) == 1) ||
+            if ((abs(mutarestart.x - mutarefinal.x) == 1 && abs(mutarestart.y - mutarefinal.y) == 1) ||
                   ((abs(mutarestart.x - mutarefinal.x) == 2 && abs(mutarestart.y - mutarefinal.y) == 2) &&
-                   mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y + (mutarefinal.y - mutarestart.y) / 2].EstePiesa() &&
-                   mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y + (mutarefinal.y - mutarestart.y) / 2].getculoare() !=
-                   mat[mutarestart.x][mutarestart.y].getculoare()))) {
-                return 1;
+                   mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
+                                                                            (mutarefinal.y - mutarestart.y) /
+                                                                            2].EstePiesa() &&
+                   mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
+                                                                            (mutarefinal.y - mutarestart.y) /
+                                                                            2].getculoare() !=
+                   mat[mutarestart.x][mutarestart.y].getculoare())){
+                return 0;
             }
         }
-        return 0;
+        return 1;
     }
+
 public:
 
     joc() {
@@ -180,10 +184,10 @@ public:
             for (int i = 0; i < lungimetable; i++)
                 for (int j = 0; j < latimetable; j++) {
                     this->mat[i][j] = other.mat[i][j];
-                    this->lungimetable=other.lungimetable;
-                    this->latimetable=other.latimetable;
-                    this->lungimebanda=other.lungimebanda;
-                    this->latimebanda=other.latimetable;
+                    this->lungimetable = other.lungimetable;
+                    this->latimetable = other.latimetable;
+                    this->lungimebanda = other.lungimebanda;
+                    this->latimebanda = other.latimetable;
                 }
         }
         return *this;
@@ -296,8 +300,8 @@ public:
             std::cout << "MUTARE INVALIDA 5!!!";
             return 0;
         }
-        if(mv2(ms,mf,rj)) {
-            std::cout<<"MUTARE INVALIDA 6";
+        if (mv2(ms, mf, rj)) {
+            std::cout << "MUTARE INVALIDA 6";
             return 0;
         }
         return 1;
@@ -323,7 +327,7 @@ public:
                 } while (!conversiemutare(mutarestart, mutarefinal, mutare) ||
                          !mutarevalida(mutarestart, mutarefinal, randjucator));
 
-                if (mv(mutarestart,mutarefinal)) {
+                if (mv(mutarestart, mutarefinal)) {
                     mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
                                                                              (mutarefinal.y - mutarestart.y) /
                                                                              2].setCuloare("");
