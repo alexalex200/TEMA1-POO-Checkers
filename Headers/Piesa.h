@@ -51,7 +51,7 @@ public:
 
     explicit Rege(const Piesa &other);
 
-    int mutaripos(std::array<pozitie,4> &pozvalid,std::array<std::array<Piesa*, 8>, 8> mat,int randjucator);
+    int mutaripos(std::array<pozitie,4> &pozvalid,std::array<std::array<Piesa*, 8>, 8> mat,int randjucator) override;
 
 };
 
