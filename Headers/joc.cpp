@@ -4,48 +4,6 @@
 
 #include "joc.h"
 
-/*
-    int joc::mv(pozitie mutarestart, pozitie mutarefinal) {
-        if (abs(mutarestart.x - mutarefinal.x) == 2 && abs(mutarestart.y - mutarefinal.y) == 2 &&
-            mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
-                                                                     (mutarefinal.y - mutarestart.y) /
-                                                                     2].EstePiesa() &&
-            mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
-                                                                     (mutarefinal.y - mutarestart.y) /
-                                                                     2].getculoare() !=
-            mat[mutarestart.x][mutarestart.y].getculoare())
-            return 1;
-        return 0;
-    }
-
-    int joc::mv2(pozitie mutarestart, pozitie mutarefinal, int randjucator) {
-        if (mat[mutarestart.x][mutarestart.y].getRege() == 0) {
-            if (((mutarefinal.x - mutarestart.x == randjucator) && abs(mutarestart.y - mutarefinal.y) == 1) ||
-                ((abs(mutarestart.x - mutarefinal.x) == 2 && abs(mutarestart.y - mutarefinal.y) == 2) &&
-                 mat[mutarestart.x + randjucator][mutarestart.y +
-                                                  (mutarefinal.y - mutarestart.y) / 2].EstePiesa() &&
-                 mat[mutarestart.x + randjucator][mutarestart.y +
-                                                  (mutarefinal.y - mutarestart.y) / 2].getculoare() !=
-                 mat[mutarestart.x][mutarestart.y].getculoare())) {
-                return 0;
-            }
-        } else {
-            if ((abs(mutarestart.x - mutarefinal.x) == 1 && abs(mutarestart.y - mutarefinal.y) == 1) ||
-                ((abs(mutarestart.x - mutarefinal.x) == 2 && abs(mutarestart.y - mutarefinal.y) == 2) &&
-                 mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
-                                                                          (mutarefinal.y - mutarestart.y) /
-                                                                          2].EstePiesa() &&
-                 mat[mutarestart.x + (mutarefinal.x - mutarestart.x) / 2][mutarestart.y +
-                                                                          (mutarefinal.y - mutarestart.y) /
-                                                                          2].getculoare() !=
-                 mat[mutarestart.x][mutarestart.y].getculoare())){
-                return 0;
-            }
-        }
-        return 1;
-    }
-
-*/
 joc::joc() {
     for (int i = 0; i < lungimetable; i++)
         for (int j = 0; j < latimetable; j++) {
@@ -187,7 +145,7 @@ void joc::start() {
             std::string mutare;
             std::cout << "Randul jucatorului " << (randjucator < 0 ? p1.getNume() : p2.getNume());
             std::array<pozitie,4> pozitiilibere{};
-            pozitie mutarestart;
+            pozitie mutarestart{};
             int sem;
             do {
                 sem=1;

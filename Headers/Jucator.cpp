@@ -6,10 +6,10 @@
 
 Jucator::Jucator() {}
 
-Jucator::Jucator(const std::string &new_nume, const std::string &new_culoare)
-        : Culoare(new_culoare), Nume(new_nume) {}
+Jucator::Jucator(std::string new_nume, std::string &new_culoare)
+        : Culoare(new_culoare), Nume(std::move(new_nume)) {}
 
-Jucator::Jucator(const std::string &new_culoare)
+Jucator::Jucator(std::string &new_culoare)
         : Culoare(new_culoare), Nume("") {}
 
 Jucator::Jucator(const Jucator &other)

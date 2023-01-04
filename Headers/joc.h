@@ -15,10 +15,6 @@ class joc {
 
     int lungimetable = 8, latimetable = 8, lungimebanda = 3, latimebanda = 4;
 
-    int mv(pozitie mutarestart, pozitie mutarefinal) ;
-
-    int mv2(pozitie mutarestart, pozitie mutarefinal, int randjucator) ;
-
 public:
 
     joc() ;
@@ -33,7 +29,7 @@ public:
 
     void afistabla() ;
 
-    int conversiemutare(pozitie &a,std::string m) ;
+    static int conversiemutare(pozitie &a,std::string m) ;
 
     void start() ;
 };
