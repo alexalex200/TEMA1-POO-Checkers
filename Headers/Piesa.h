@@ -37,7 +37,7 @@ public:
 
     void setpozitie( const int new_x,int new_y);
 
-    int virtual mutaripos(std::array<pozitie,4> &pozvalid,std::array<std::array<Piesa*, 8>, 8> mat,int randjucator);
+    virtual int mutaripos(std::array<pozitie,4> &pozvalid,std::array<std::array<Piesa*, 8>, 8> mat,int randjucator);
 
 };
 
@@ -49,7 +49,7 @@ public:
 
     Rege(const std::string &new_culoare, int x,int y);
 
-    Rege(const Piesa &other);
+    explicit Rege(const Piesa &other);
 
     int mutaripos(std::array<pozitie,4> &pozvalid,std::array<std::array<Piesa*, 8>, 8> mat,int randjucator);
 

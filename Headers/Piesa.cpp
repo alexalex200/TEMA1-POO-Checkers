@@ -137,8 +137,11 @@ int Rege::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pies
     int sem=0,i=0;
     for(int j=0;j<4;j++)
         pozvalid[j].x=pozvalid[j].y=-1;
-    randjucator=1;
-    if (x + 1 < 8 && y + 1 < 8&&randjucator) {
+    if(randjucator==1)
+    {
+        std::cout<<"";
+    }
+    if (x + 1 < 8 && y + 1 < 8) {
         if (mat[x + 1][y + 1] != nullptr ) {
             if ((x + 2 < 8 && y + 2 < 8) && mat[x+2][y+2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
                 pozvalid[i].x = x + 2;

@@ -16,7 +16,7 @@ public:
     Jucator() ;
 
     Jucator(const std::string &new_nume, const std::string &new_culoare);
-    Jucator(const std::string &new_culoare);
+    explicit Jucator(const std::string &new_culoare);
     Jucator(const Jucator &other);
 
     ~Jucator() ;
