@@ -131,7 +131,7 @@ void joc::afistabla() {
                 if ((j % 4 == 1 || j % 4 == 2) && i % 3 == 1 && mat[i / 3][(j - 4) / 4] != nullptr) {
                     if (j % 4 == 1) {
                         std::cout << mat[i / 3][(j - 4) / 4]->getculoare();
-                        if (strstr(typeid(*mat[i / 3][(j - 4) / 4]).name(), "Rege"))
+                        if (strstr(typeid(mat[i / 3][(j - 4) / 4]).name(), "Rege"))
                             std::cout << "R";
                         else
                             std::cout << " ";

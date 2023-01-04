@@ -127,7 +127,7 @@ int Piesa::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pie
 }
 
 Rege::Rege()
-        : Piesa("", -1, -1) {};
+        : Piesa("", -1, -1) {}
 
 Rege::Rege(const std::string &new_culoare, int new_x, int new_y)
         : Piesa(new_culoare, new_x, new_y) {}
