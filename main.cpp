@@ -11,6 +11,7 @@ int main() {
 
     joc Checkers;
     Checkers.start();
+
     //Checkers.afistabla();
 
 }
