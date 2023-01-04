@@ -31,7 +31,5 @@ public:
     int getscor()const;
 
     void increment_scor();
-
-    void setCuloare(const std::string &new_culoare);
 };
 #endif //OOP_JUCATOR_H

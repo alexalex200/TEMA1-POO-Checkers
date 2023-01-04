@@ -47,7 +47,3 @@ int Jucator::getscor() const {
 void Jucator::increment_scor() {
     scor++;
 }
-
-void Jucator::setCuloare(const std::string &new_culoare) {
-    Culoare = new_culoare;
-}
