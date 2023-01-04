@@ -8,10 +8,15 @@
 
 
 int main() {
-
     joc Checkers;
-    Checkers.start();
 
+    try {
+        Checkers.start();
+    }
+    catch(std::bad_alloc& ba)
+    {
+        std::cerr << "bad_alloc caught: " << ba.what() << '\n';
+    }
     //Checkers.afistabla();
 
 }

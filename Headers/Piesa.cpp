@@ -113,6 +113,7 @@ int Piesa::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pie
             }
         }
     }
+
     if(!sem)
         std::cout<<"Piesa aleasa nu poate fi mutata !";
     return sem;
