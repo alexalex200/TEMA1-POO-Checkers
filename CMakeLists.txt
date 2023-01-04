@@ -4,10 +4,17 @@ cmake_minimum_required(VERSION 3.15)
 # for now, the project name is used as the executable name
 project(oop)
 
+add_executable(TEMA1-POO-Checkers main.cpp Headers/Piesa.cpp Headers/Piesa.h Headers/Jucator.cpp Headers/Jucator.h Headers/joc.cpp Headers/joc.h)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(SFML_STATIC_LIBRARIES TRUE)
+set(SFML_DIR C:/SFML-2.5.1/lib/cmake/SFML)
+find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
+
+include_directories(C:/SFML-2.5.1/include)
+target_link_libraries(TEMA1-POO-Checkers sfml-system sfml-window sfml-graphics sfml-audio)
 # By default, treat warnings as errors; override via cmake defines or via env vars
 if(DEFINED WARNINGS_AS_ERRORS)
   # do nothing, already defined
