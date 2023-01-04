@@ -49,7 +49,7 @@ endif()
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp Headers/joc.cpp Headers/joc.h Headers/Jucator.cpp Headers/Jucator.h Headers/Piesa.cpp Headers/Piesa.h)
 
 ###############################################################################
 

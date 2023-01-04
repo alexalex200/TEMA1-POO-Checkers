@@ -21,7 +21,7 @@ public:
 
     Piesa(const Piesa &other);
 
-    ~Piesa() ;
+    virtual ~Piesa() ;
 
     Piesa &operator=(const Piesa &other) ;
 
