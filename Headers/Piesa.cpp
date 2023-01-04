@@ -59,9 +59,9 @@ int Piesa::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pie
     for(int j=0;j<4;j++)
         pozvalid[j].x=pozvalid[j].y=-1;
     if (randjucator == 1) {
-        if (-1 < x + 1 && x + 1 < 8 && -1 < y + 1 && y + 1 < 8) {
+        if (x + 1 < 8 &&  y + 1 < 8) {
             if (mat[x + 1][y + 1] != nullptr ) {
-                if ((-1 < x + 2 && x + 2 < 8 && -1 < y + 2 && y + 2 < 8) && mat[x+2][y+2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
+                if ((x + 2 < 8 &&  y + 2 < 8) && mat[x+2][y+2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
                     pozvalid[i].x = x + 2;
                     pozvalid[i].y = y + 2;
                     sem=1;
@@ -74,25 +74,23 @@ int Piesa::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pie
                 i++;
             }
         }
-        if (-1 < x + 1 && x + 1 < 8 && -1 < y - 1 && y - 1 < 8) {
+        if ( x + 1 < 8 && -1 < y - 1 ) {
             if (mat[x + 1][y - 1] != nullptr ) {
-                if ((-1 < x + 2 && x + 2 < 8 && -1 < y - 2 && y - 2 < 8) && mat[x+2][y-2] == nullptr && mat[x + 1][y - 1]->getculoare()!=mat[x][y]->getculoare()) {
+                if ((x + 2 < 8 && -1 < y - 2 ) && mat[x+2][y-2] == nullptr && mat[x + 1][y - 1]->getculoare()!=mat[x][y]->getculoare()) {
                     pozvalid[i].x = x + 2;
                     pozvalid[i].y = y - 2;
                     sem=1;
-                    i++;
                 }
             } else {
                 pozvalid[i].x = x + 1;
                 pozvalid[i].y = y - 1;
                 sem=1;
-                i++;
             }
         }
     } else {
-        if (-1 < x - 1 && x - 1 < 8 && -1 < y + 1 && y + 1 < 8) {
+        if (-1 < x - 1 && y + 1 < 8) {
             if (mat[x - 1][y + 1] != nullptr ) {
-                if ((-1 < x - 2 && x - 2 < 8 && -1 < y + 2 && y + 2 < 8) && mat[x-2][y+2] == nullptr && mat[x - 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
+                if ((-1 < x - 2 && y + 2 < 8) && mat[x-2][y+2] == nullptr && mat[x - 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
                     pozvalid[i].x = x - 2;
                     pozvalid[i].y = y + 2;
                     sem=1;
@@ -105,19 +103,17 @@ int Piesa::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pie
                 i++;
             }
         }
-        if (-1 < x - 1 && x - 1 < 8 && -1 < y - 1 && y - 1 < 8) {
+        if (-1 < x - 1 && -1 < y - 1) {
             if (mat[x - 1][y - 1] != nullptr ) {
-                if ((-1 < x - 2 && x - 2 < 8 && -1 < y - 2 && y - 2 < 8) && mat[x-2][y-2] == nullptr && mat[x - 1][y - 1]->getculoare()!=mat[x][y]->getculoare()) {
+                if ((-1 < x - 2 && -1 < y - 2) && mat[x-2][y-2] == nullptr && mat[x - 1][y - 1]->getculoare()!=mat[x][y]->getculoare()) {
                     pozvalid[i].x = x - 2;
                     pozvalid[i].y = y - 2;
                     sem=1;
-                    i++;
                 }
             } else {
                 pozvalid[i].x = x - 1;
                 pozvalid[i].y = y - 1;
                 sem=1;
-                i++;
             }
         }
     }
@@ -142,9 +138,9 @@ int Rege::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pies
     for(int j=0;j<4;j++)
         pozvalid[j].x=pozvalid[j].y=-1;
     randjucator=1;
-    if (-1 < x + 1 && x + 1 < 8 && -1 < y + 1 && y + 1 < 8&&randjucator) {
+    if (x + 1 < 8 && y + 1 < 8&&randjucator) {
         if (mat[x + 1][y + 1] != nullptr ) {
-            if ((-1 < x + 2 && x + 2 < 8 && -1 < y + 2 && y + 2 < 8) && mat[x+2][y+2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
+            if ((x + 2 < 8 && y + 2 < 8) && mat[x+2][y+2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
                 pozvalid[i].x = x + 2;
                 pozvalid[i].y = y + 2;
                 sem=1;
@@ -157,9 +153,9 @@ int Rege::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pies
             i++;
         }
     }
-    if (-1 < x + 1 && x + 1 < 8 && -1 < y - 1 && y - 1 < 8) {
+    if (x + 1 < 8 && -1 < y - 1) {
         if (mat[x + 1][y - 1] != nullptr) {
-            if ((-1 < x + 2 && x + 2 < 8 && -1 < y - 2 && y - 2 < 8) && mat[x+2][y-2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
+            if ((x + 2 < 8 && -1 < y - 2) && mat[x+2][y-2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
                 pozvalid[i].x = x + 2;
                 pozvalid[i].y = y + 2;
                 sem=1;
@@ -172,9 +168,9 @@ int Rege::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pies
             i++;
         }
     }
-    if (-1 < x - 1 && x - 1 < 8 && -1 < y + 1 && y + 1 < 8) {
+    if (-1 < x - 1 && y + 1 < 8) {
         if (mat[x - 1][y + 1] != nullptr ) {
-            if ((-1 < x - 2 && x - 2 < 8 && -1 < y + 2 && y + 2 < 8) && mat[x-2][y+2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
+            if ((-1 < x - 2 && y + 2 < 8) && mat[x-2][y+2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
                 pozvalid[i].x = x + 2;
                 pozvalid[i].y = y + 2;
                 sem=1;
@@ -187,19 +183,17 @@ int Rege::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pies
             i++;
         }
     }
-    if (-1 < x - 1 && x - 1 < 8 && -1 < y - 1 && y - 1 < 8) {
+    if (-1 < x - 1 && -1 < y - 1 ) {
         if (mat[x - 1][y - 1] != nullptr ) {
-            if ((-1 < x - 2 && x - 2 < 8 && -1 < y - 2 && y - 2 < 8) && mat[x-2][y-2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
+            if ((-1 < x - 2 && -1 < y - 2 ) && mat[x-2][y-2] == nullptr && mat[x + 1][y + 1]->getculoare()!=mat[x][y]->getculoare()) {
                 pozvalid[i].x = x + 2;
                 pozvalid[i].y = y + 2;
                 sem=1;
-                i++;
             }
         } else {
             pozvalid[i].x = x - 1;
             pozvalid[i].y = y - 1;
             sem=1;
-            i++;
         }
     }
     if(!sem)
