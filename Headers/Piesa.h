@@ -33,8 +33,6 @@ public:
 
     int gety() const;
 
-    void setCuloare(const std::string &new_culoare) ;
-
     void setpozitie( const int new_x,int new_y);
 
     virtual int mutaripos(std::array<pozitie,4> &pozvalid,std::array<std::array<Piesa*, 8>, 8> mat,int randjucator);

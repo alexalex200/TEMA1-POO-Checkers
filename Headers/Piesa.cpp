@@ -45,10 +45,6 @@ int Piesa::gety() const {
     return y;
 }
 
-void Piesa::setCuloare(const std::string &new_culoare) {
-    Culoare = new_culoare;
-}
-
 void Piesa::setpozitie( const int new_x,int new_y)
 {
     x=new_x;
