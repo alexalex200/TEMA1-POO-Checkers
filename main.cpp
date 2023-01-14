@@ -9,7 +9,6 @@
 
 int main() {
     joc Checkers;
-
     try {
         Checkers.start();
     }
