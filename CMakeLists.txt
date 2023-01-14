@@ -4,7 +4,6 @@ cmake_minimum_required(VERSION 3.15)
 # for now, the project name is used as the executable name
 project(oop)
 
-add_executable(TEMA1-POO-Checkers main.cpp Headers/Piesa.cpp Headers/Piesa.h Headers/Jucator.cpp Headers/Jucator.h Headers/joc.cpp Headers/joc.h)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
