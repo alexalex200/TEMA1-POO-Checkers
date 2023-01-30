@@ -141,8 +141,8 @@ void joc::start() {
     Jucator p1("N"), p2("A");
     std::cin >> p1 >> p2;
     int nrA=Piesa::getnrpiesealbe(),nrN=Piesa::getnrpiesenegre();
-    nrA = 1;
-    nrN = 1;
+    //nrA = 1;
+    //nrN = 1;
     int randjucator = -1;
     char raspuns;
     do {
