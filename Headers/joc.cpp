@@ -50,12 +50,16 @@ joc &joc::operator=(const joc &other) {
 }
 
 joc::~joc() {
-    del(lungimetable,latimebanda,mat);
+    for (int i = 0; i < lungimetable; i++)
+        for (int j = 0; j < latimetable; j++)
+            delete mat[i][j];
 }
 
 void joc::ResetTabla() {
 
-    del(lungimetable,latimebanda,mat);
+    for (int i = 0; i < lungimetable; i++)
+        for (int j = 0; j < latimetable; j++)
+            delete mat[i][j];
 
     for (int i = 0; i < lungimetable; i++)
         for (int j = 0; j < latimetable; j++) {
@@ -141,6 +145,7 @@ void joc::start() {
     int randjucator = -1;
     char raspuns;
     do {
+        ResetTabla();
         do {
             afistabla();
             std::string mutare;
@@ -188,7 +193,6 @@ void joc::start() {
             randjucator = randjucator * (-1);
             //system("cls");
         } while (nrA != 0 && nrN != 0);
-        ResetTabla();
         if (nrA == 0) {
             p1.increment_scor();
             std::cout << "Castiga " << p1.getNume() << " Scor: " << p1.getscor() << '\n';
