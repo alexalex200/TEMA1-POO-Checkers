@@ -13,6 +13,7 @@ struct pozitie {
 class Piesa {
 protected:
     std::string Culoare;
+    static int nrpiesealbe,nrpiesenegre;
     int x,y;
 public:
     Piesa();
@@ -37,6 +38,11 @@ public:
 
     virtual int mutaripos(std::array<pozitie,4> &pozvalid,std::array<std::array<Piesa*, 8>, 8> mat,int randjucator);
 
+    virtual char getnume();
+
+    int static getnrpiesealbe();
+
+    int static getnrpiesenegre();
 };
 
 class Rege : public Piesa
@@ -51,6 +57,7 @@ public:
 
     int mutaripos(std::array<pozitie,4> &pozvalid,std::array<std::array<Piesa*, 8>, 8> mat,int randjucator) override;
 
+    char getnume() override;
 };
 
 #endif //OOP_PIESA_H

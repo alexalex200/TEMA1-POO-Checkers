@@ -12,7 +12,6 @@
 
 class joc {
     std::array<std::array<Piesa*, 8>,8> mat;
-
     int lungimetable = 8, latimetable = 8, lungimebanda = 3, latimebanda = 4;
 
 public:

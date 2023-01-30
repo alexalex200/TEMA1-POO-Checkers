@@ -4,6 +4,12 @@
 
 #include "joc.h"
 
+void del(int lungimetable,int latimetable, std::array<std::array<Piesa *, 8>, 8> mat) {
+    for (int i = 0; i < lungimetable; i++)
+        for (int j = 0; j < latimetable; j++)
+            delete mat[i][j];
+}
+
 joc::joc() {
     for (int i = 0; i < lungimetable; i++)
         for (int j = 0; j < latimetable; j++) {
@@ -34,28 +40,22 @@ joc::joc(const joc &other)
 
 joc &joc::operator=(const joc &other) {
     if (&other != this) {
-        for (int i = 0; i < lungimetable; i++)
-            for (int j = 0; j < latimetable; j++) {
-                this->mat[i][j] = other.mat[i][j];
-                this->lungimetable = other.lungimetable;
-                this->latimetable = other.latimetable;
-                this->lungimebanda = other.lungimebanda;
-                this->latimebanda = other.latimetable;
-            }
+        this->lungimetable = other.lungimetable;
+        this->latimetable = other.latimetable;
+        this->lungimebanda = other.lungimebanda;
+        this->latimebanda = other.latimetable;
+        std::copy(std::begin(other.mat),std::end(other.mat),std::begin(this->mat));
     }
     return *this;
 }
 
 joc::~joc() {
-    for (int i = 0; i < lungimetable; i++)
-        for (int j = 0; j < latimetable; j++)
-            delete mat[i][j];
+    del(lungimetable,latimebanda,mat);
 }
 
 void joc::ResetTabla() {
-    for (int i = 0; i < lungimetable; i++)
-        for (int j = 0; j < latimetable; j++)
-            delete mat[i][j];
+
+    del(lungimetable,latimebanda,mat);
 
     for (int i = 0; i < lungimetable; i++)
         for (int j = 0; j < latimetable; j++) {
@@ -89,7 +89,7 @@ void joc::afistabla() {
                 if ((j % 4 == 1 || j % 4 == 2) && i % 3 == 1 && mat[i / 3][(j - 4) / 4] != nullptr) {
                     if (j % 4 == 1) {
                         std::cout << mat[i / 3][(j - 4) / 4]->getculoare();
-                        if (strstr(typeid(mat[i / 3][(j - 4) / 4]).name(), "Rege"))
+                        if ((mat[i / 3][(j - 4) / 4])->getnume()=='R')
                             std::cout << "R";
                         else
                             std::cout << " ";
@@ -137,6 +137,7 @@ void joc::start() {
     Jucator p1("N"), p2("A");
     std::cin >> p1 >> p2;
     int nrA = 1, nrN = 1;
+    //int nrA=Piesa::getnrpiesealbe(),nrN=Piesa::getnrpiesenegre();
     int randjucator = -1;
     char raspuns;
     do {

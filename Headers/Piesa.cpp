@@ -4,11 +4,19 @@
 
 #include "Piesa.h"
 
+int Piesa::nrpiesealbe=0;
+int Piesa::nrpiesenegre=0;
+
 Piesa::Piesa()
         : Culoare(""), x(-1), y(-1) {}
 
 Piesa::Piesa(const std::string &new_culoare, int new_x, int new_y)
-        : Culoare(new_culoare), x(new_x), y(new_y) {}
+        : Culoare(new_culoare), x(new_x), y(new_y) {
+        if(new_culoare=="N")
+            nrpiesenegre++;
+        else
+            nrpiesealbe++;
+}
 
 Piesa::Piesa(const Piesa &other)
         : Culoare(other.Culoare), x(other.x), y(other.y) {
@@ -17,6 +25,10 @@ Piesa::Piesa(const Piesa &other)
 
 Piesa::~Piesa() {
     std::cout << "Destr Piesa\n";
+    if(Culoare=="N")
+        nrpiesenegre--;
+    else
+        nrpiesealbe--;
 }
 
 Piesa &Piesa::operator=(const Piesa &other) {
@@ -119,6 +131,19 @@ int Piesa::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pie
     return sem;
 }
 
+char Piesa::getnume()
+{
+    return 'P';
+}
+
+int Piesa::getnrpiesealbe() {
+    return nrpiesealbe;
+}
+
+int Piesa::getnrpiesenegre() {
+    return nrpiesenegre;
+}
+
 Rege::Rege()
         : Piesa("", -1, -1) {}
 
@@ -201,3 +226,7 @@ int Rege::mutaripos(std::array<pozitie, 4> &pozvalid, std::array<std::array<Pies
     return sem;
 }
 
+char Rege::getnume()
+{
+    return 'R';
+}
