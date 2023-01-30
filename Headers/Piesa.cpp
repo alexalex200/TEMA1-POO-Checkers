@@ -137,11 +137,11 @@ char Piesa::getnume()
 }
 
 int Piesa::getnrpiesealbe() {
-    return nrpiesealbe;
+    return 1;
 }
 
 int Piesa::getnrpiesenegre() {
-    return nrpiesenegre;
+    return 1;
 }
 
 Rege::Rege()
