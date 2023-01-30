@@ -4,12 +4,6 @@
 
 #include "joc.h"
 
-void del(int lungimetable,int latimetable, std::array<std::array<Piesa *, 8>, 8> mat) {
-    for (int i = 0; i < lungimetable; i++)
-        for (int j = 0; j < latimetable; j++)
-            delete mat[i][j];
-}
-
 joc::joc() {
     for (int i = 0; i < lungimetable; i++)
         for (int j = 0; j < latimetable; j++) {
