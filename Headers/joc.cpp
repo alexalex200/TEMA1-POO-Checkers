@@ -140,8 +140,9 @@ int joc::conversiemutare(pozitie &a, std::string m) {
 void joc::start() {
     Jucator p1("N"), p2("A");
     std::cin >> p1 >> p2;
-    int nrA = 1, nrN = 1;
-    //int nrA=Piesa::getnrpiesealbe(),nrN=Piesa::getnrpiesenegre();
+    int nrA=Piesa::getnrpiesealbe(),nrN=Piesa::getnrpiesenegre();
+    nrA = 1;
+    nrN = 1;
     int randjucator = -1;
     char raspuns;
     do {
